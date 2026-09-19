@@ -1,6 +1,7 @@
-const { chromium, webkit } = require('playwright');
+import { test } from '@playwright/test';
+import { chromium, webkit } from 'playwright';
 
-(async () => {
+test('Multiple browser contexts', async () => {
 
     // Launch Edge browser
     const edgeBrowser = await chromium.launch({
@@ -10,7 +11,7 @@ const { chromium, webkit } = require('playwright');
 
     const edgePage = await edgeBrowser.newPage();
 
-    // Open Red Bus
+    // Open RedBus
     await edgePage.goto('https://www.redbus.in');
 
     console.log('Red Bus Title:', await edgePage.title());
@@ -24,18 +25,15 @@ const { chromium, webkit } = require('playwright');
 
     const webkitPage = await webkitBrowser.newPage();
 
-    // Open Flipkart
-    await webkitPage.goto('https://www.flipkart.com');
+    // Open RedBus
+    await webkitPage.goto('https://www.redbus.in');
 
-    console.log('Flipkart Title:', await webkitPage.title());
-    console.log('Flipkart URL:', webkitPage.url());
+    console.log('WebKit Title:', await webkitPage.title());
+    console.log('WebKit URL:', webkitPage.url());
 
-
-    // Wait for 5 seconds
-    await edgePage.waitForTimeout(5000);
 
     // Close browsers
     await edgeBrowser.close();
     await webkitBrowser.close();
 
-})();
+});
